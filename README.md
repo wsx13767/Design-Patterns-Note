@@ -6,26 +6,42 @@
 > behavior盡量以HAS-A(有一個)，而不是用繼承
 >
 > Strategy Pattern 策略模式
-```java
-public abstract class Duck {
-  // HAS-A 叫聲 interface
-  QuackBehavior quackBehavior;
-  // HAS-A 飛行行為 interface
-  FlyBehavior flyBehavior;
-  // 外觀
-  public abstract void display();
-  
-  // 執行飛行
-  public void performFly() {
-    quackBehavior.fly();
-  }
-  
-  // 執行叫
-  public void performQuack() {
-    quackBehavior.quack();
-  }
+```mermaid
+classDiagram
+Duck ..* FlyBehavior
+Duck ..* QuackBehavior
+
+class Duck {
+ <<abstract>>
+ #QuackBehavior quackBehavior
+ #FlyBehavior flyBehavior
+ +performFly()
+ +performQuack()
+}
+QuackBehavior <|-- MuteQuack
+class QuackBehavior {
+ <<interface>>
+ +quack()
+}
+class MuteQuack {
+ +quack()
+}
+FlyBehavior <|-- FlyWithWings
+FlyBehavior <|-- FlyNoWay
+class FlyBehavior {
+  <<interface>>
+  +fly()
+}
+class FlyWithWings {
+ +fly()
+}
+
+class FlyNoWay {
+ +fly()
 }
 ```
+
+
 
 ## 觀察者模式
 
@@ -122,3 +138,35 @@ class Whip {
 +cost() double
 }
 ```
+
+## 工廠方法模式
+
+```mermaid
+classDiagram
+
+NYStylePizza *-- NYStylePizzaStore
+
+class NYStylePizzaStore {
+  createPizza() Pizza
+}
+
+Pizza <|-- NYStylePizza
+class Pizza {
+ <<abstract>>
+}
+class NYStylePizza
+
+PizzaStore <|-- NYStylePizzaStore
+
+class PizzaStore {
+ <<abstract>>
+ +orderPizza() Pizza
+ #createPizza()* Pizza
+}
+
+```
+
+
+
+## 抽象工廠模式
+
