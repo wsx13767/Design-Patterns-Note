@@ -4,6 +4,11 @@
 
 # Design-Patterns-Note
 
+> * 封裝
+> * 繼承
+> * 多型
+> * 抽象
+
 ## 策略模式
 > Duck 鴨子行為範例
 >
@@ -12,8 +17,8 @@
 > Strategy Pattern 策略模式
 ```mermaid
 classDiagram
-Duck ..* FlyBehavior
-Duck ..* QuackBehavior
+Duck *.. FlyBehavior
+Duck *.. QuackBehavior
 
 class Duck {
  <<abstract>>
@@ -75,7 +80,7 @@ class WeatherData {
 
 DisplayElement <|.. CurrentConditionDisplay
 Observer <|.. CurrentConditionDisplay
-Subject *.. CurrentConditionDisplay
+Subject ..* CurrentConditionDisplay
 class DisplayElement {
 	<<interface>>
 	+display()
@@ -150,7 +155,7 @@ class Whip {
 ```mermaid
 classDiagram
 
-NYStylePizza o-- NYStylePizzaStore
+NYStylePizza --o NYStylePizzaStore
 
 class NYStylePizzaStore {
   createPizza() Pizza
@@ -227,8 +232,8 @@ class ClamPizza {
   +ClamPizza(PizzaIngredientFactory ingredientFactory)
   prepare()
 }
-ClamPizza *-- NYPizzaStore
-Pizza *-- PizzaStore
+ClamPizza --* NYPizzaStore
+Pizza --* PizzaStore
 PizzaStore <|-- NYPizzaStore
 NYPizzaStore --> Sauce
 NYPizzaStore --> Dough
@@ -255,5 +260,42 @@ pizzaStore ->>+ ingredientFactory: get ingredient(Dough,Sauce...)
 ingredientFactory ->>- pizzaStore: give ingredient
 end
 pizzaStore ->>- customer: give pizza
+```
+
+## 獨體模式(singleton)
+
+> 只能有一個實例
+
+## 命令模式
+
+> 將請求封裝為物件
+
+```mermaid
+classDiagram
+SimpleRemoteControl --> Command
+SimpleRemoteControl --> Light
+Command <|.. LightOnCommand
+
+class Command {
+ <<interface>>
+ +execute()* void
+}
+
+class Light {
+  +on() void
+  +off() void
+}
+
+class LightOnCommand {
+  Light light
+  +LightOnCommand(Light light)
+  +execute()
+}
+
+class SimpleRemoteControl {
+  -Command slot
+  +setCommand(Command command) void
+  +buttonWasPressed() void
+}
 ```
 
