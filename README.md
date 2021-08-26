@@ -279,6 +279,7 @@ Command <|.. LightOnCommand
 class Command {
  <<interface>>
  +execute()* void
+ +undo()* void
 }
 
 class Light {
