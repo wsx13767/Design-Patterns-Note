@@ -300,3 +300,31 @@ class SimpleRemoteControl {
 }
 ```
 
+## 轉接器模式
+
+> 將一個介面轉成另一個介面
+
+```mermaid
+classDiagram
+
+Target <|.. Adapter
+Adapter --> Adaptee
+
+class Target {
+  <<interface>>
+  request()* void
+}
+
+class Adapter {
+ request() void
+}
+
+class Adaptee {
+  specificRequest()
+}
+```
+
+## 表象模式
+
+> 讓介面更簡化
+

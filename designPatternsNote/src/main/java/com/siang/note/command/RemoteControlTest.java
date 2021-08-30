@@ -21,7 +21,10 @@ public class RemoteControlTest {
         GarageDoor garageDoor = new GarageDoor("");
         Stereo stereo = new Stereo("Living Room");
 
-        remoteControl.setCommand(0, new LightOnCommand(livingRoomLight), new LightOffCommand(livingRoomLight));
+        LightOnCommand lightOn = new LightOnCommand(livingRoomLight);
+        LightOffCommand lightOff = new LightOffCommand(livingRoomLight);
+
+        remoteControl.setCommand(0, lightOn, lightOff);
         remoteControl.setCommand(1, new LightOnCommand(kitchenLight), new LightOffCommand(kitchenLight));
         remoteControl.setCommand(2, new CeilingFanOnCommand(ceilingFan), new CeilingFanOffCommand(ceilingFan));
         remoteControl.setCommand(3, new GarageDoorUpCommand(garageDoor), new GarageDoorDownCommand(garageDoor));
